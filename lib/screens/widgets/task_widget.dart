@@ -7,9 +7,9 @@ class TaskWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      startActionPane: ActionPane(motion: DrawerMotion(), children: [
+      startActionPane: ActionPane(motion: const DrawerMotion(), children: [
         SlidableAction(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
           backgroundColor: Colors.red,
           onPressed: (context) {},
@@ -28,7 +28,7 @@ class TaskWidget extends StatelessWidget {
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-          margin: EdgeInsets.symmetric(horizontal: 18),
+          margin: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -55,14 +55,15 @@ class TaskWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Container(
-                  margin: EdgeInsets.only(right: 12),
-                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 2),
+                  margin: const EdgeInsets.only(right: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Theme.of(context).primaryColor),
-                  child: Icon(
+                  child: const Icon(
                     Icons.done,
                     size: 30,
                     color: Colors.white,
