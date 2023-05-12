@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo_c8_friday/firebase/firebase_functions.dart';
+import 'package:todo_c8_friday/models/task_model.dart';
+import 'package:todo_c8_friday/screens/update_task.dart';
+import 'package:todo_c8_friday/shared/styles/app_colors.dart';
 
 class TaskWidget extends StatelessWidget {
-  const TaskWidget({Key? key}) : super(key: key);
+  TaskModel taskModel;
+
+  TaskWidget(this.taskModel);
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +18,18 @@ class TaskWidget extends StatelessWidget {
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(12), bottomLeft: Radius.circular(12)),
           backgroundColor: Colors.red,
-          onPressed: (context) {},
+          onPressed: (context) {
+            FirebaseFunctions.deleteTask(taskModel.id);
+          },
           icon: Icons.delete,
           label: "Delete",
         ),
         SlidableAction(
           backgroundColor: Theme.of(context).primaryColor,
-          onPressed: (context) {},
+          onPressed: (context) {
+            Navigator.pushNamed(context, UpdateTask.routeName,
+                arguments: taskModel);
+          },
           icon: Icons.edit,
           label: "Edit",
         ),
@@ -46,28 +57,44 @@ class TaskWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Task Title",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    taskModel.title,
+                    style: taskModel.status
+                        ? Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: greenColor)
+                        : Theme.of(context).textTheme.bodyMedium,
                   ),
                   Text(
-                    "Task Description",
+                    taskModel.description,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
               const Spacer(),
-              Container(
-                  margin: const EdgeInsets.only(right: 12),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Theme.of(context).primaryColor),
-                  child: const Icon(
-                    Icons.done,
-                    size: 30,
-                    color: Colors.white,
-                  ))
+              taskModel.status
+                  ? Text(
+                      "DONE!",
+                      style: TextStyle(color: greenColor),
+                    )
+                  : InkWell(
+                      onTap: () {
+                        taskModel.status = true;
+                        FirebaseFunctions.updateTask(taskModel.id, taskModel);
+                      },
+                      child: Container(
+                          margin: const EdgeInsets.only(right: 12),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 18, vertical: 2),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Theme.of(context).primaryColor),
+                          child: Icon(
+                            Icons.done,
+                            size: 30,
+                            color: Colors.white,
+                          )),
+                    )
             ],
           ),
         ),
