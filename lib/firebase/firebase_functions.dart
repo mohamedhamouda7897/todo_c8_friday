@@ -31,6 +31,18 @@ class FirebaseFunctions {
         .snapshots();
   }
 
+  static Future<void> delete() async {
+    QuerySnapshot<TaskModel> tasksSnap = await getTasksCollection()
+        .where('date',
+            isLessThan:
+                DateUtils.dateOnly(DateTime.now()).millisecondsSinceEpoch)
+        .get();
+    var tasks = tasksSnap.docs.map((e) => e.data()).toList();
+    tasks.forEach((element) {
+      getTasksCollection().doc(element.id).delete();
+    });
+  }
+
   static Future<void> deleteTask(String id) {
     return getTasksCollection().doc(id).delete();
   }

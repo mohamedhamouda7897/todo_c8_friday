@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_c8_friday/firebase/firebase_functions.dart';
 import 'package:todo_c8_friday/home_layout/home_layout.dart';
 import 'package:todo_c8_friday/screens/update_task.dart';
 import 'package:todo_c8_friday/shared/styles/my_theme.dart';
@@ -13,6 +14,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseFirestore.instance.disableNetwork();
+  FirebaseFunctions.delete();
   runApp(MyApp());
 }
 
