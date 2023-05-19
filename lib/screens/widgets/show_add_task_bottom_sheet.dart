@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_c8_friday/firebase/firebase_functions.dart';
 import 'package:todo_c8_friday/models/task_model.dart';
@@ -18,7 +19,7 @@ class _ShowAddTaskBottomSheetState extends State<ShowAddTaskBottomSheet> {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 12),
         child: Form(
@@ -120,6 +121,7 @@ class _ShowAddTaskBottomSheetState extends State<ShowAddTaskBottomSheet> {
                     TaskModel task = TaskModel(
                         title: tasksTitleController.text,
                         description: tasksDescriptionController.text,
+                        userId: FirebaseAuth.instance.currentUser!.uid,
                         status: false,
                         date: selectedDate.millisecondsSinceEpoch);
                     FirebaseFunctions.addTaskToFirestore(task);
