@@ -81,50 +81,13 @@ class FirebaseFunctions {
     return getTasksCollection().doc(id).update(task.toJson());
   }
 
-  static void createAuthAccount(String name, String age, String email,
-      String password, Function afterAddToFirestore) async {
-    try {
-      var credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      UserModel user = UserModel(
-        id: credential.user!.uid,
-        name: name,
-        email: email,
-        age: age,
-      );
-      addUserToFirestore(user).then((value) {
-        afterAddToFirestore();
-        // Navigator.pushReplacementNamed(context, routeName);
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+// static void createAuthAccount(String name, String age, String email,
+//     String password, Function afterAddToFirestore) async {
+//
+// }
 
-  static void userLogin(String emailAddress, String password,
-      Function userNotFound, Function getUser) async {
-    try {
-      var credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: emailAddress, password: password);
-
-      readUser(credential.user!.uid).then((value) {
-        getUser(value);
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        userNotFound();
-      } else if (e.code == 'wrong-password') {
-        userNotFound();
-      }
-    }
-  }
+// static void userLogin(String emailAddress, String password,
+//     Function userNotFound, Function getUser) async {
+//
+// }
 }

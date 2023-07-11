@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_c8_friday/firebase/firebase_functions.dart';
 import 'package:todo_c8_friday/home_layout/home_layout.dart';
 import 'package:todo_c8_friday/providers/my_provider.dart';
-import 'package:todo_c8_friday/screens/create_account.dart';
-import 'package:todo_c8_friday/screens/login.dart';
+import 'package:todo_c8_friday/screens/signup/create_account.dart';
+import 'package:todo_c8_friday/screens/login/login.dart';
 import 'package:todo_c8_friday/screens/update_task.dart';
 import 'package:todo_c8_friday/shared/styles/my_theme.dart';
 

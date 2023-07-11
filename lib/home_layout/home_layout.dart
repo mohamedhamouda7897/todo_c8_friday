@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_c8_friday/models/user_model.dart';
 import 'package:todo_c8_friday/providers/my_provider.dart';
-import 'package:todo_c8_friday/screens/login.dart';
+import 'package:todo_c8_friday/screens/login/login.dart';
 import 'package:todo_c8_friday/screens/settingsScreen.dart';
 import 'package:todo_c8_friday/screens/tasks.dart';
 import 'package:todo_c8_friday/screens/widgets/show_add_task_bottom_sheet.dart';
@@ -35,14 +35,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                 Icons.logout,
                 color: Colors.white,
               )),
-          IconButton(
-              onPressed: () {
-                FirebaseCrashlytics.instance.crash();
-              },
-              icon: Icon(
-                Icons.add,
-                color: Colors.white,
-              ))
+          // IconButton(
+          //     onPressed: () {
+          //       FirebaseCrashlytics.instance.crash();
+          //     },
+          //     icon: Icon(
+          //       Icons.add,
+          //       color: Colors.white,
+          //     ))
         ],
         title: Text(
           "Todo App${provider.myUser?.name}",
